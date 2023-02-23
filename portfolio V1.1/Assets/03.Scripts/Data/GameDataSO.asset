@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b1917b8d8d2bc44eb6aa82cc7f38f9c, type: 3}
+  m_Name: GameDataSO
+  m_EditorClassIdentifier: 
+  Coin: 1626
+  PlayerHp: 100
+  PlayerPower: 10
+  PlayerSpeed: 3
+  HQHp: 100
+  FireRate: 2
+  MyBullet: 633
+  GunBullet: 1
+  ReloadingTime: 1
+  ReloadingAnim: 2
+  haveRifle: 0
+  haveMachinegun: 0
+  maxEnemy: 9
+  EnemySpeed: 1.4641001
+  EnemyHp: 18
+  EnemyPower: 6
+  EnemyAttackS: 1
+  Wave: 1
