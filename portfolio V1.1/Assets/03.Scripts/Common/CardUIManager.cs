@@ -13,11 +13,11 @@ public class CardUIManager : MonoBehaviour
     }
     private void OnEnable()
     {
-        randomSelect.CardCreate();
+        randomSelect.CardCreate();  //카드 UI가 켜질때 Card를 생성
     }
     private void OnDisable()
     {
-        for(int i = 0; i<Card.Length; i++)
+        for(int i = 0; i<Card.Length; i++)  //카드 UI가 꺼지면 카드를 제거
         {
             Destroy(Card[i]);
         }

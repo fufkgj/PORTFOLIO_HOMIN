@@ -46,8 +46,8 @@ public class EnemyMove : MonoBehaviour
         if (GetComponent<EnemyAI>().isDie == true) return;
         if (agent.isStopped == false)
         {
-            Quaternion rot = Quaternion.LookRotation(agent.desiredVelocity);
-            enemyTr.rotation = Quaternion.Slerp(enemyTr.rotation, rot,
+            Quaternion rot = Quaternion.LookRotation(agent.desiredVelocity); 
+            enemyTr.rotation = Quaternion.Slerp(enemyTr.rotation, rot,        //적 오브젝트가 타겟을 바라보게 회전
                                              Time.deltaTime);
         }
     }

@@ -72,36 +72,36 @@ public class FriendlyFire : MonoBehaviour
         WeaponCheck();
         gunBullet = maxBullet;
         Enemy = GameObject.FindGameObjectsWithTag("Enemy");      
-        if (Enemy.Length != 0)
+        if (Enemy.Length != 0) //적이 존재할 경우
         {
             closeDist = 100f;
             TargetDist = 100f;
             TargetIdx = -1;
             
-            for (int i = 0; i < Enemy.Length; i++)
+            for (int i = 0; i < Enemy.Length; i++) //가장 가까운 적을 찾는 스크립트
             {
-                currentDist = Vector3.Distance(FirePos.position, Enemy[i].transform.position);
+                currentDist = Vector3.Distance(FirePos.position, Enemy[i].transform.position); //오브젝트와 i번째 적과의 거리 측정
                 RaycastHit hit;              
                 Debug.DrawRay(FirePos.position, Enemy[i].transform.position - FirePos.position,Color.red);
-                bool isHit = Physics.Raycast(FirePos.position, Enemy[i].transform.position - FirePos.position, out hit);
+                bool isHit = Physics.Raycast(FirePos.position, Enemy[i].transform.position - FirePos.position, out hit); // i번째 적과 오브젝트 사이에 장애물이 없을 경우를 판단
                 Debug.Log(hit.transform.name);
 
                 if (isHit && hit.transform.CompareTag("Enemy"))
                 {
-                    if (TargetDist <= currentDist)
+                    if (TargetDist <= currentDist) 
                     {
                         TargetIdx = i;
                         TargetDist = currentDist;                                           
                     }
-                    if (closeDist >= currentDist)
+                    if (closeDist >= currentDist) //전에 측정한 제일 가까운 적보다 이번에 측정한 적이 가까울경우
                     {
-                        closeDistIdx = i;
+                        closeDistIdx = i;  //이번에 측정한 적을 제일 가까운 적으로 설정
                         closeDist = currentDist;
                     }
                 }
                              
             }
-            if (TargetIdx == -1)
+            if (TargetIdx == -1) 
             {
                 TargetIdx = closeDistIdx;
             }
@@ -111,7 +111,7 @@ public class FriendlyFire : MonoBehaviour
         targetTr = Enemy[closeDistIdx].transform;
         Fire();
     }
-    void WeaponCheck()
+    void WeaponCheck() //활성화된 총기 체크
     {
         if (WeaponNum == 0)
         {
@@ -153,18 +153,16 @@ public class FriendlyFire : MonoBehaviour
                 break;
         }
     }
-    void Fire()
+    void Fire() //사격 스크립트
     {
-        if (closeDist <= attackRange)
+        if (closeDist <= attackRange) //제일 가까운 적이 공격 범위 안에 있을 경우 사격
         {
-            Quaternion rot = Quaternion.LookRotation(targetTr.transform.position - transform.position);
-            //Quaternion fprot = Quaternion.LookRotation(targetTr.transform.position - FirePos.transform.position);
+            Quaternion rot = Quaternion.LookRotation(targetTr.transform.position - transform.position); // 타겟 방향으로 오브젝트를 회전
             transform.rotation = Quaternion.Slerp(transform.rotation, rot, Time.deltaTime*20f );
-            //FirePos.rotation = Quaternion.Slerp(FirePos.transform.rotation, fprot, Time.deltaTime * 20f);
-            FirePos.LookAt(targetTr.transform.position);
+            FirePos.LookAt(targetTr.transform.position); //타겟을 바라보고 사격
             Debug.DrawRay(FirePos.position, FirePos.forward * attackRange, Color.blue); //레이캐스트를 그린다
 
-            if (!isReloading && gunBullet > 0)
+            if (!isReloading && gunBullet > 0) 
             {
                 if (Time.time > nextFire)
                 {
@@ -186,7 +184,7 @@ public class FriendlyFire : MonoBehaviour
             }
         }
     }
-    IEnumerator Reloading()
+    IEnumerator Reloading() //재장전 스크립트
     {
         isReloading = true;
         anim.SetBool("isReloading", true);

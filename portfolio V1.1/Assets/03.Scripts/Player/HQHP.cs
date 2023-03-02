@@ -31,17 +31,17 @@ public class HQHP : MonoBehaviour
     // Update is called once per frame
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == enemyTag)
+        if (other.gameObject.tag == enemyTag) //게이트가 공격 당함
         {
-            curHp = Mathf.Max(curHp -= Damage, 0f);
+            curHp = Mathf.Max(curHp -= Damage, 0f); // Damage만큼 Hp감소
             DisplayHpBar();
         }
-        if (curHp <= 0)
+        if (curHp <= 0) // Hp가 0이 되면 게임 오버
         {
             Invoke("GameOver", 10f);
         }
     }
-    private void DisplayHpBar()
+    private void DisplayHpBar() // 게이트 Hp 정보
     {
         curHp = Mathf.Clamp(curHp, 0, initHp);
         HpBar.fillAmount = (float)curHp / (float)initHp;

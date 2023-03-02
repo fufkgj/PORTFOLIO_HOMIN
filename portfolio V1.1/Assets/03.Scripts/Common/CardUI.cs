@@ -27,8 +27,8 @@ public class CardUI : MonoBehaviour, IPointerDownHandler
     {
         if (GameManager.instance.isSelect == false)
         {
-            animator.SetTrigger("Flip");
-            GameManager.instance.Ability(cardInfo);
+            animator.SetTrigger("Flip");  //카드를 뒤집는 애니메이션 실행
+            GameManager.instance.Ability(cardInfo);   //해당 카드의 능력을 적용
         }
     }
 }

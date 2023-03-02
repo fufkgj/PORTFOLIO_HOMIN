@@ -27,14 +27,14 @@ public class EnemyHealth : MonoBehaviour
     void Start()
     {      
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other) 
     {
-        if (other.gameObject.tag == bulletTag)
+        if (other.gameObject.tag == bulletTag)//총알에 피격됐을 경우 체력 감소
         {   
-            curHp = Mathf.Max(curHp -= Damage, 0f);
+            curHp = Mathf.Max(curHp -= Damage, 0f); //Damage만큼 체력 감소
             Vector3 pos = transform.position;
             Quaternion rot = transform.rotation;
-            Instantiate(bloodEffect, pos, rot);
+            Instantiate(bloodEffect, pos, rot);  //맞은 위치에 bloodEffect를 실행
         }
     }
 }

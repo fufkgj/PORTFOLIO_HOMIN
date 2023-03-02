@@ -6,8 +6,6 @@ public class PlayerMove : MonoBehaviour
 {
     private float h = 0f;  //A,D 키보드
     private float v = 0f;  //W,S 키보드
-    private float r = 0f;  //마우스 좌 우
-    private float u = 0f;  //마우스 상 하
 
     public float movespeed = 0f;
     public float rotspeed = 100f;
@@ -48,18 +46,16 @@ public class PlayerMove : MonoBehaviour
     {
         h = Input.GetAxis("Horizontal");
         v = Input.GetAxis("Vertical");
-        r = Input.GetAxis("Mouse X");
-        u = Input.GetAxis("Mouse Y");
         Move();
         Jump();      
     }
-    private void Move()
+    private void Move() //플레이어의 이동
     {
         if (!health.isDie && !isWait)
         {
             if (Input.GetKey(KeyCode.W))
             {
-                if (Input.GetKey(KeyCode.LeftShift))
+                if (Input.GetKey(KeyCode.LeftShift)) //달리기 스크립트
                 {
                     movespeed = 6f;
                     isRunning = true;
@@ -74,7 +70,7 @@ public class PlayerMove : MonoBehaviour
             }
             else
                 anim.SetFloat(hashMove, 0);
-            if (Input.GetKey(KeyCode.S))
+            if (Input.GetKey(KeyCode.S)) //뒷걸음질 시 이동속도 감소
             {
                 if (Input.GetKey(KeyCode.LeftShift))
                 {
@@ -102,38 +98,36 @@ public class PlayerMove : MonoBehaviour
             }
 
 
-            Vector3 moveDir = (Vector3.forward * v) + (Vector3.right * h);
-            tr.Translate(moveDir.normalized * movespeed * Time.deltaTime, Space.Self);
-            Vector3 rotDir = (Vector3.up * r);
-            tr.Rotate(rotDir.normalized * rotspeed * Time.deltaTime);
+            Vector3 moveDir = (Vector3.forward * v) + (Vector3.right * h); //플레이어 이동 방향
+            tr.Translate(moveDir.normalized * movespeed * Time.deltaTime, Space.Self);  // 플레이어가 이동 방향으로 movespeed의 속도로 이동
 
             anim.SetFloat("xDir", h);
             anim.SetFloat("yDir", v);
         }
-        if (isWait)
+        if (isWait)  //대기 중에는 애니메이션 고정 
         {
             anim.SetFloat("xDir", 0);
             anim.SetFloat("yDir", 0);
         }
     }
 
-    private void Jump()
+    private void Jump() //점프 스크립트
     {
         if (Input.GetKeyDown(KeyCode.Space) && isJump == false) 
         {
-            rbody.AddForce(Vector3.up * jump, ForceMode.Impulse);
+            rbody.AddForce(Vector3.up * jump, ForceMode.Impulse); // 위쪽으로 힘을 가함
             anim.SetTrigger("Jump");
         }
     }
     private void OnCollisionStay(Collision col)
     {
-        if(col.collider.tag == "Tile" || col.collider.tag == "Stage")
+        if(col.collider.tag == "Tile" || col.collider.tag == "Stage") //Tile과 Stage와 접촉중인 경우 점프 가능
         {
             anim.SetBool("isJump", false);
             isJump = false;
         }
     }
-    private void OnCollisionExit(Collision col)
+    private void OnCollisionExit(Collision col) //Tile이나 Stage와 떨어지면 점프를 할 수 없음
     {
         if (col.collider.tag == "Tile" || col.collider.tag == "Stage")
         {

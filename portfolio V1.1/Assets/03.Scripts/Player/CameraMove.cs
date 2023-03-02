@@ -30,7 +30,7 @@ public class CameraMove : MonoBehaviour
 
             mx += h * rotSpeed * Time.deltaTime;
             my += v * rotSpeed * Time.deltaTime;
-            if (my >= max)
+            if (my >= max)   //카메라 회전 제한
                 my = max;
             else if (my <= -max)
                 my = -max;

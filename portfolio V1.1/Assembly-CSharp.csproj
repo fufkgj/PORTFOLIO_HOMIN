@@ -59,7 +59,6 @@
     <Compile Include="Assets\03.Scripts\Common\Card.cs" />
     <Compile Include="Assets\03.Scripts\Common\CardUI.cs" />
     <Compile Include="Assets\03.Scripts\Common\CardUIManager.cs" />
-    <Compile Include="Assets\03.Scripts\Common\CreateManager.cs" />
     <Compile Include="Assets\03.Scripts\Common\GameManager.cs" />
     <Compile Include="Assets\03.Scripts\Common\LookAim.cs" />
     <Compile Include="Assets\03.Scripts\Common\MyGizmos.cs" />

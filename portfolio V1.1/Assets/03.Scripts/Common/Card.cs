@@ -8,11 +8,11 @@ public enum CardAbility { Get_bullet, PlayerHP_ten , Enemy_Speed, Enemy_Power,Re
 [System.Serializable]
 public class Card 
 {
-    public string CardName;
-    public Sprite CardImg;
-    public CardGrade CardGrade;
-    public CardAbility CardAbility;
-    public int weight;
+    public string CardName;  //카드 이름
+    public Sprite CardImg;   //카드 이미지
+    public CardGrade CardGrade; //카드 등급
+    public CardAbility CardAbility; //카드 효과
+    public int weight; //카드가 나올 확률
 
     public Card(Card card)
     {

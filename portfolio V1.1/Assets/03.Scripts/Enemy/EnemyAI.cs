@@ -61,7 +61,7 @@ public class EnemyAI : MonoBehaviour
         StartCoroutine(CheckState());
         StartCoroutine(Action());
     }
-    IEnumerator CheckState()
+    IEnumerator CheckState()//적 Ai의 상태 체크 
     {
         yield return new WaitForSeconds(0.1f);
         while (!isDie)
@@ -69,18 +69,18 @@ public class EnemyAI : MonoBehaviour
             if (state == State.DIE) yield break;
             float playerdist = Vector3.Distance(playerTr.position, enemyTr.position);
             float gatedist = Vector3.Distance(gateTr.position, enemyTr.position);
-            if (playerdist <= traceDist)
+            if (playerdist <= traceDist) //플레이어가 추적 범위 내에 있을 경우
             {
                 state = State.TRACEPLAYER;
 
-                if (playerdist <= attackDist)
+                if (playerdist <= attackDist) //플레이어와의 거리가 공격 범위 내일 경우
                 {
                     state = State.ATTACK;
                 }
                 else
                     state = State.TRACEPLAYER;
             }
-            else
+            else //플레이어가 추적 범위 밖에 있을 경우
             {
                 state = State.TRACEGATE;
 
@@ -103,37 +103,37 @@ public class EnemyAI : MonoBehaviour
             yield return new WaitForSeconds(0.2f);
             switch (state)
             {
-                case State.TRACEGATE:
+                case State.TRACEGATE: //타겟이 게이트
                     enemyAttack.isAttack = false;
                     enemyMove.traceTarget = gateTr.position;
                     enemyAttack.targetTr = gateTr.transform;
                     break;
-                case State.TRACEPLAYER:
+                case State.TRACEPLAYER: // 타겟이 플레이어
                     enemyAttack.isAttack = false;
                     enemyMove.traceTarget = playerTr.position;
                     enemyAttack.targetTr = playerTr.transform;
                     break;
-                case State.ATTACK:
+                case State.ATTACK: //타겟이 공격 범위 내
                     enemyMove.Stop();
                     anim.SetBool(hashMove, false);
                     if (enemyAttack.isAttack == false)
                         enemyAttack.isAttack = true;                  
                     break;
-                case State.DIE:
+                case State.DIE: //사망
                     Die();
                     break;
             }
         }
     }
-    public void Die()
+    public void Die() //사망
     {
         GameManager.instance.KillData();
-        HitPointL.SetActive(false);
+        HitPointL.SetActive(false); // 공격판정 콜라이더를 끔
         HitPointR.SetActive(false);
-        gameObject.tag = "Untagged";
+        gameObject.tag = "Untagged"; 
         isDie = true;
-        enemyMove.Stop();
-        anim.SetInteger(hashDieIdx, Random.Range(0, 6));
+        enemyMove.Stop(); //움직임 멈춤
+        anim.SetInteger(hashDieIdx, Random.Range(0, 6));  // 사망 애니메이션 랜덤 재생
         anim.SetTrigger(hashDie);      
         GetComponent<CapsuleCollider>().enabled = false;
         GetComponent<Rigidbody>().isKinematic = true;
@@ -144,7 +144,7 @@ public class EnemyAI : MonoBehaviour
     void Update()
     {
     }
-    IEnumerator PushObjectPool()
+    IEnumerator PushObjectPool() //오브젝트 초기화
     {
         yield return new WaitForSeconds(3f);
         isDie = false;

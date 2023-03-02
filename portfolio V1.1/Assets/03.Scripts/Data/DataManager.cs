@@ -49,7 +49,7 @@ public class DataManager : MonoBehaviour
     bf.Serialize(file, data);
         file.Close();
     }
-    public GameData Load()
+    public GameData Load() // 게임 데이터를 가져오는 스크립트
     {
         if(File.Exists(dataPath))
         {

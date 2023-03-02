@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class FireCtrl : MonoBehaviour
 {
-    public enum WeaponType
+    public enum WeaponType //무기의 종류
     {
         PISTOL = 0,
         RIFLE,
@@ -62,7 +62,7 @@ public class FireCtrl : MonoBehaviour
         health = GetComponent<PlayerHealth>();       
         MyBullet = gameData.MyBullet;  //총 탄약      
         ReloadingTime = 1 * gameData.ReloadingTime;  // 재장전 시간
-        ReloadingAnim = 1f * gameData.ReloadingAnim;
+        ReloadingAnim = 1f * gameData.ReloadingAnim;  
         gunBullet = maxBullet;  //탄창을 최대로 채우고 시작
         FirePos = FirePosList[0];
         Flash = muzzleFlash[0];
@@ -81,7 +81,7 @@ public class FireCtrl : MonoBehaviour
         FireCheck();
     }
 
-    private void FireCheck()
+    private void FireCheck() // 사격 판단
     {
         if (!health.isDie)
         {
@@ -95,11 +95,11 @@ public class FireCtrl : MonoBehaviour
                     {
                         if (MyBullet > 0)
                         {
-                            StartCoroutine(Reloading());
+                            StartCoroutine(Reloading()); //재장전 스크립트 실행
                         }
 
                     }
-                    nextFire = Time.time + fireRate;
+                    nextFire = Time.time + fireRate; 
                 }             
             }
             else
@@ -107,12 +107,12 @@ public class FireCtrl : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.R) && MyBullet > 0 && gunBullet != maxBullet) 
             {
-                StartCoroutine(Reloading());
+                StartCoroutine(Reloading()); 
             }
             
         }
     }
-    private void Fire()
+    private void Fire()//사격 스크립트
     {
         var _bullet = GameManager.instance.GetBullet();
         if (_bullet != null)
@@ -124,13 +124,13 @@ public class FireCtrl : MonoBehaviour
             Flash.Play();
         }
     }
-    private void BulletDisplay()
+    private void BulletDisplay()  //총알 정보 UI
     {
         MyBulletTxt.text = MyBullet.ToString("00000");
         gunBulletTxt.text = gunBullet.ToString("000");
         MaxBullletTxt.text ="/ "+ maxBullet.ToString("000");
     }
-    void WeaponChange()
+    void WeaponChange() //무기 변경
     {
         if (Input.GetKeyDown(KeyCode.Alpha1) && ClipNum != 0)
         {
@@ -184,7 +184,7 @@ public class FireCtrl : MonoBehaviour
                 break;
         }
     }
-    IEnumerator Reloading()
+    IEnumerator Reloading() // 재장전 스크립트
     {
         isReloading = true;
         anim.SetBool("isReloading", true);
